@@ -1,11 +1,13 @@
+// My Staking Contract address is deployed to - 0x987e855776C03A4682639eEb14e65b3089EE6310
+
 import { ethers } from "hardhat";
- const helpers = require("@nomicfoundation/hardhat-network-helpers");
+const helpers = require("@nomicfoundation/hardhat-network-helpers");
 
 async function main() {
     //contract addresses of the contract we are swapping
  const USDT_address = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
  const DAI_address = "0x6B175474E89094C44Da98b954EedeAC495271d0F"
-//address of someone with USDT and erther
+//address of someone with USDT and ether
  const address = "0x69166e49d2fd23E4cbEA767d7191bE423a7733A5"
 //impersonateAccount function is from the helpers library
 await helpers.impersonateAccount(address);
@@ -36,15 +38,8 @@ const deadline = Math.floor(Date.now() / 1000) + (60 * 10);
 const amountAMin = 20e6;
 const amountBMin = 15e6;
 const liquidityAmt = 10e6;
-//approve the swap before swapping by calling the approve function
-// await USDT.approve(ROUTER_ADDRESS, amountOut );
-// uint amountOut,
-// uint amountInMax,
-// address[] calldata path,
-// address to,
-// uint deadline
 
-const swapToken = await UNISWAP.swapTokensForExactTokens(amountOut, amountIn, [USDT_address, DAI_address], address, deadline, {gasLimit: ethers.utils.hexlify(1000000)});
+const swapToken = await UNISWAP.swapExactTokensForTokens(amountOut, amountIn, [USDT_address, DAI_address], address, deadline, {gasLimit: ethers.utils.hexlify(1000000)});
 console.log(swapToken)
 
 // checking our balance after we swapped 
